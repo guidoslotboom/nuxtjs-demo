@@ -23,7 +23,7 @@
       <div class="links">
         <nuxt-link
           v-for="post in posts"
-          :to="{ name: 'post-id', params: { id: post.id } }"
+          :to="{ name: 'posts-id', params: { id: post.id } }"
           :key="post.id"
           class="button--grey"
         >
