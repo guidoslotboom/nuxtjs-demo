@@ -36,6 +36,15 @@
           <li v-for="post in posts" :key="post.id">
             <h4>{{ post.title.rendered }}</h4>
             <div v-html="post.excerpt.rendered"></div>
+
+            <nuxt-link
+              :to="{
+                name: 'blog-slug',
+                params: { slug: post.slug, id: post.id }
+              }"
+            >
+              Read more
+            </nuxt-link>
           </li>
         </ul>
       </div>
