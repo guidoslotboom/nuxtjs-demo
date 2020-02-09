@@ -21,23 +21,10 @@
         </a>
       </div>
       <div class="links">
-        <nuxt-link
-          v-for="message in messages"
-          :to="{ name: 'messages-id', params: { id: message.id } }"
-          :key="message.id"
-          class="button--grey"
-        >
-          {{ message.title }}
-        </nuxt-link>
-      </div>
-      <div class="links">
         <h3>Latest posts from our Blog</h3>
-        <ul>
-          <li v-for="post in posts" :key="post.id">
-            <h4>{{ post.title.rendered }}</h4>
-            <div v-html="post.excerpt.rendered"></div>
-          </li>
-        </ul>
+        <div v-for="post in posts" :key="post.id" class="link">
+          <h4>{{ post.title.rendered }}</h4>
+        </div>
       </div>
     </div>
   </div>
@@ -63,9 +50,6 @@ export default {
     }
   },
   computed: {
-    messages() {
-      return this.$store.state.messages.all
-    },
     posts() {
       return this.$store.state.posts
     }

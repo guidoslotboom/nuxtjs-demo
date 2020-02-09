@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <article>
-      <h1 class="title">{{ post.title }}</h1>
-      <p>{{ post.content }}</p>
+      <h1 class="title">{{ message.title }}</h1>
+      <p>{{ message.content }}</p>
     </article>
     <aside>
       <h3>Posts you might enjoy</h3>
       <ul>
-        <li v-for="related in relatedPosts" :key="related.title">
-          <nuxt-link :to="{ name: 'posts-id', params: { id: related.id } }">
+        <li v-for="related in relatedMessages" :key="related.title">
+          <nuxt-link :to="{ name: 'messages-id', params: { id: related.id } }">
             {{ related.title }}
           </nuxt-link>
         </li>
@@ -21,10 +21,10 @@
 export default {
   head() {
     return {
-      title: this.post.title,
+      title: this.message.title,
       meta: [
-        { name: 'twitter:title', content: this.post.title },
-        { name: 'twitter:description', content: this.post.content },
+        { name: 'twitter:title', content: this.message.title },
+        { name: 'twitter:description', content: this.message.content },
         { name: 'twitter:image', content: 'https://i.imgur.com/UYP2umJ.png' },
         { name: 'twitter:card', content: 'summary_large_image' }
       ]
@@ -36,20 +36,24 @@ export default {
     }
   },
   computed: {
-    post() {
+    message() {
       // return this.posts.find((post) => post.id === this.id)
       // Let's use the posts coming from the store in our component.
       // Here, we used to access the posts under this.posts.
       // Now, we have to access the store.
       // Nuxt has automatically injected the store into all components.
       // So, we can use this.$store, then navigate to the state, then the posts module, and grab all the posts that live in the all property.
-      return this.$store.state.posts.all.find((post) => post.id === this.id)
+      return this.$store.state.messages.all.find(
+        (message) => message.id === this.id
+      )
     },
-    relatedPosts() {
+    relatedMessages() {
       // return this.posts.filter((post) => post.id !== this.id)
       // Let's do the same for the recommended posts.
       // Notice here that there is no difference, on how you use Vuex in your application.
-      return this.$store.state.posts.all.filter((post) => post.id !== this.id)
+      return this.$store.state.messages.all.filter(
+        (message) => message.id !== this.id
+      )
     }
   }
 }
