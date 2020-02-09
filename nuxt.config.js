@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
   mode: 'universal',
   /*
@@ -48,6 +50,23 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+  /*
+   ** Generate configuration
+   */
+  generate: {
+    routes: () => {
+      return axios
+        .get('http://vuejs-wordpress:8888/wp-json/wp/v2/posts')
+        .then((res) => {
+          return res.data.map((post) => {
+            return {
+              route: 'blog/' + post.slug,
+              payload: post
+            }
+          })
+        })
+    }
+  },
   /*
    ** Build configuration
    */

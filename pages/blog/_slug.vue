@@ -16,14 +16,20 @@ export default {
       post: {}
     }
   },
-  asyncData({ params }) {
-    return axios
-      .get('http://vuejs-wordpress:8888/wp-json/wp/v2/posts/' + params.id)
-      .then((res) => {
-        return {
-          post: res.data
-        }
-      })
+  asyncData({ params, payload }) {
+    if (payload) {
+      return {
+        post: payload
+      }
+    } else {
+      return axios
+        .get('http://vuejs-wordpress:8888/wp-json/wp/v2/posts/' + params.id)
+        .then((res) => {
+          return {
+            post: res.data
+          }
+        })
+    }
   }
 }
 </script>
